@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">PADC-X-Travel-Assignment-CEP</string>
+    <string name="action_settings">Settings</string>
+    <string name="txt_lbl_find_best_tour">Find the best tour</string>
+    <string name="txt_lbl_country">Country</string>
+    <string name="txt_lbl_popular_tours">Popular tours</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="txt_lbl_dummy_country">Thailand</string>
+    <string name="txt_lbl_emty_data">Data are not available for now</string>
+    <string name="txt_lbl_free_wifi">Free\nWifi</string>
+    <string name="txt_lbl_bar_n_restaurant">Bar and Restaurant</string>
+    <string name="txt_lbl_first_coastline">First\nCoastline</string>
+    <string name="txt_lbl_sand_beach">Sand\nBeach</string>
+    <string name="txt_lbl_booking">Booking</string>
+    <string name="txt_lbl_hotel_out">Hotel Out</string>
+</resources>
