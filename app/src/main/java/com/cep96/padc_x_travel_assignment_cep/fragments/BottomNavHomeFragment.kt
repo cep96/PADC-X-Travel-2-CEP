@@ -15,6 +15,7 @@ import com.cep96.padc_x_travel_assignment_cep.adapters.PopularToursListAdapter
 import com.cep96.padc_x_travel_assignment_cep.mvp.presenters.HomePresenter
 import com.cep96.padc_x_travel_assignment_cep.mvp.presenters.HomePresenterImpl
 import com.cep96.padc_x_travel_assignment_cep.mvp.views.HomeView
+import com.cep96.padc_x_travel_assignment_cep.viewmodels.ToursViewModel
 import com.cep96.padc_x_travelapp_assignment_cep.data.vos.CountryVO
 import com.cep96.padc_x_travelapp_assignment_cep.data.vos.ToursVO
 import kotlinx.android.synthetic.main.fragment_nav_home.*
@@ -61,6 +62,8 @@ class BottomNavHomeFragment : Fragment(), HomeView {
 
     private lateinit var mPresenter: HomePresenter
 
+    private lateinit var mToursViewModel: ToursViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -77,6 +80,7 @@ class BottomNavHomeFragment : Fragment(), HomeView {
         super.onViewCreated(view, savedInstanceState)
 
         setUpPresenter()
+        setUpViewModel()
 
         setUpDataFromDB()
 
@@ -85,6 +89,10 @@ class BottomNavHomeFragment : Fragment(), HomeView {
 
 //        requestData()
         mPresenter.onToursUIReady(this)
+
+    }
+
+    private fun setUpViewModel() {
 
     }
 
