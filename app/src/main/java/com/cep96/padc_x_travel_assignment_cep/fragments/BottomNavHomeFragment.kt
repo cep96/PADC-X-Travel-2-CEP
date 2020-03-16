@@ -1,35 +1,65 @@
 package com.cep96.padc_x_travel_assignment_cep.fragments
 
-
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cep96.padc_x_travel_assignment_cep.R
-import com.cep96.padc_x_travel_assignment_cep.activities.PopularToursDetailActvity
+import com.cep96.padc_x_travel_assignment_cep.activities.PopularToursDetailActivity
 import com.cep96.padc_x_travel_assignment_cep.adapters.CountryListAdapter
 import com.cep96.padc_x_travel_assignment_cep.adapters.PopularToursListAdapter
-import com.cep96.padc_x_travelapp_assignment_cep.data.models.ToursModelImpl
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.BiFunction
-import io.reactivex.schedulers.Schedulers
+import com.cep96.padc_x_travel_assignment_cep.mvp.presenters.HomePresenter
+import com.cep96.padc_x_travel_assignment_cep.mvp.presenters.HomePresenterImpl
+import com.cep96.padc_x_travel_assignment_cep.mvp.views.HomeView
+import com.cep96.padc_x_travelapp_assignment_cep.data.vos.CountryVO
+import com.cep96.padc_x_travelapp_assignment_cep.data.vos.ToursVO
 import kotlinx.android.synthetic.main.fragment_nav_home.*
+
 
 /**
  * A simple [Fragment] subclass.
  */
-class BottomNavHomeFragment : Fragment() {
+class BottomNavHomeFragment : Fragment(), HomeView {
+    override fun displayToursList(tours: List<ToursVO>) {
+        mPopularToursAdapter.setNewData(tours)
+    }
+
+    override fun displayCountriesList(countries: List<CountryVO>) {
+        mCountryAdapter.setNewData(countries)
+    }
+
+    override fun navigateToTourDetails(toursName: String) {
+        startActivity(PopularToursDetailActivity.getIntent(this.requireContext(), toursName))
+    }
+
+    override fun navigateToCountryDetails(countryName: String) {
+        startActivity(PopularToursDetailActivity.getIntent(this.requireContext(), countryName))
+    }
+
+    override fun enableSwipeRefresh() {
+        swipeRefreshLayout.isRefreshing = true
+    }
+
+    override fun disableSwipeRefresh() {
+        swipeRefreshLayout.isRefreshing = false
+    }
+
+    override fun displayToursEmpty() {
+
+    }
+
+    override fun displayCountriesEmpty() {
+
+    }
 
     private lateinit var mCountryAdapter: CountryListAdapter
     private lateinit var mPopularToursAdapter: PopularToursListAdapter
+
+    private lateinit var mPresenter: HomePresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,45 +76,61 @@ class BottomNavHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUpPresenter()
+
+        setUpDataFromDB()
+
         setUpSwipeRefresh()
         setUpRecyclerView()
 
-        requestData()
+//        requestData()
+        mPresenter.onToursUIReady(this)
 
     }
 
-    private fun requestData() {
-        ToursModelImpl.getData()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                it.countries.let {
-                    mCountryAdapter.setNewData(it)
-                }
+    @SuppressLint("CheckResult")
+    private fun setUpDataFromDB() {
 
-                it.tours.let {
-                    mPopularToursAdapter.setNewData(it)
-                }
 
-                swipeRefreshLayout.isRefreshing = false
-            },{
-                swipeRefreshLayout.isRefreshing = false
-                Log.i("Error", it.localizedMessage)
-            })
     }
+
+    private fun setUpPresenter() {
+        mPresenter = ViewModelProviders.of(this.requireActivity()).get(HomePresenterImpl::class.java)
+        mPresenter.initPresenter(this)
+    }
+
+//    private fun requestData() {
+//
+//        ToursModelImpl.getAllCountries {}
+//            .observe(this, Observer {
+//                it.let {
+//                    mCountryAdapter.setNewData(it)
+//                }
+//            })
+//
+//        ToursModelImpl.getAllTours {}
+//            .observe(this, Observer {
+//                it.let {
+//                    mPopularToursAdapter.setNewData(it)
+//                }
+//            })
+//
+//    }
 
     private fun setUpRecyclerView() {
         // for country list
-        mCountryAdapter = CountryListAdapter {
-            startActivity(PopularToursDetailActvity.getIntent(context!!))
+        mCountryAdapter = CountryListAdapter { name ->
+//            startActivity(PopularToursDetailActivity.getIntent(context!!, name))
+            mPresenter.onTapCountryItem(name)
         }
 
         rcCountry.adapter = mCountryAdapter
         rcCountry.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         // for popular tours list
-        mPopularToursAdapter = PopularToursListAdapter{
-            startActivity(PopularToursDetailActvity.getIntent(context!!))
+        mPopularToursAdapter = PopularToursListAdapter{ name ->
+//            startActivity(PopularToursDetailActivity.getIntent(context!!, name))
+            mPresenter.onTapTourItem(name)
         }
 
         rcPopularTours.adapter = mPopularToursAdapter
@@ -94,7 +140,8 @@ class BottomNavHomeFragment : Fragment() {
 
     private fun setUpSwipeRefresh() {
         swipeRefreshLayout.setOnRefreshListener {
-            requestData()
+//            requestData()
+            mPresenter.onToursUIReady(this)
         }
     }
 

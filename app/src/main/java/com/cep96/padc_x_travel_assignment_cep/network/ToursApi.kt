@@ -1,4 +1,4 @@
-package com.cep96.padc_x_travelapp_assignment_cep.network
+package com.cep96.padc_x_travel_assignment_cep.network
 
 import com.cep96.padc_x_travel_assignment_cep.GET_COUNTRIES
 import com.cep96.padc_x_travel_assignment_cep.GET_TOURS

@@ -1,17 +1,30 @@
-package com.cep96.padc_x_travelapp_assignment_cep.data.models
+package com.cep96.padc_x_travel_assignment_cep.data.models
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.cep96.padc_x_travelapp_assignment_cep.data.vos.CountriesAndToursListVO
 import com.cep96.padc_x_travelapp_assignment_cep.data.vos.CountryVO
+import com.cep96.padc_x_travelapp_assignment_cep.data.vos.ToursVO
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
-import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
 
-object ToursModelImpl : BaseModel() {
+object ToursModelImpl : BaseModel(), ToursModel {
+    override fun getAllTours(onError: (String) -> Unit): LiveData<List<ToursVO>> {
+        return mTheDB.tourDao().getAllTours()
+    }
+
+    override fun getAllCountries(onError: (String) -> Unit): LiveData<List<CountryVO>> {
+        return mTheDB.countryDao().getAllCountries()
+    }
+
+    override fun getTourByName(name: String): LiveData<ToursVO> {
+        return mTheDB.tourDao().getTourByName(name)
+    }
+
+    override fun getCountryByName(name: String): LiveData<CountryVO> {
+        return mTheDB.countryDao().getCountryByName(name)
+    }
 
     var toursList: MutableLiveData<List<CountryVO>> = MutableLiveData()
     var countryList: MutableLiveData<List<CountryVO>> = MutableLiveData()
@@ -41,14 +54,30 @@ object ToursModelImpl : BaseModel() {
 //
 //    }
 
-    fun getData(): Observable<CountriesAndToursListVO>{
-        return Observable.zip<List<CountryVO>, List<CountryVO>, CountriesAndToursListVO> (
-            mToursApi.getAllCountries().map { it.data },
-            mToursApi.getAllTours().map { it.data },
+    fun getData(): Observable<CountriesAndToursListVO> {
+        return Observable.zip<List<CountryVO>, List<ToursVO>, CountriesAndToursListVO> (
+            mToursApi.getAllCountries().map {
+                it.data
+            },
+            mToursApi.getAllTours().map {
+                it.data
+            },
             BiFunction { countries, tours ->
                 return@BiFunction CountriesAndToursListVO(countries, tours)
             }
         )
+            .subscribeOn(Schedulers.io())
+
+//            .doOnNext {
+//                Log.i("List", "$it")
+//                mTheDB.countryDao().insertAllCountries(it.countries)
+//                mTheDB.tourDao().insertAllTours(it.tours)
+//            }
+    }
+
+    fun saveToDatabase(tours: List<ToursVO>, countries: List<CountryVO>){
+        mTheDB.countryDao().insertAllCountries(countries)
+        mTheDB.tourDao().insertAllTours(tours)
     }
 
 //    override fun getAllCountries(onError: (String) -> Unit, onSuccess: (List<CountryVO>) -> Unit) {

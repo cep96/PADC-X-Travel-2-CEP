@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.PopularToursDetailActvity">
+    tools:context=".activities.PopularToursDetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -93,9 +93,11 @@
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <LinearLayout
+            android:id="@+id/llView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -312,7 +314,7 @@
                 android:paddingEnd="@dimen/margin_medium_2"/>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcPhotos"
+                android:id="@+id/rvPhotos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/margin_medium"
@@ -323,6 +325,15 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <org.mmtextview.components.MMTextView
+        android:id="@+id/tvEmptyView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="No data available"
+        android:visibility="gone"/>
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

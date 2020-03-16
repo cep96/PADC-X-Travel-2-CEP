@@ -1,12 +1,23 @@
 package com.cep96.padc_x_travelapp_assignment_cep.data.vos
 
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.cep96.padc_x_travel_assignment_cep.persistence.typeconverters.PhonesTypeConverter
+import com.cep96.padc_x_travel_assignment_cep.persistence.typeconverters.ScoresAndReviewsTypeConverter
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "country")
+@TypeConverters(ScoresAndReviewsTypeConverter::class, PhonesTypeConverter::class)
 data class CountryVO (
-    @SerializedName("name") val name: String,
-    @SerializedName("description") val description: String,
-    @SerializedName("location")val location: String,
-    @SerializedName("average_rating") val averageRating: Double,
-    @SerializedName("scores_and_reviews")val scoresAndReviews: List<ScoresAndReviewsVO>,
-    @SerializedName("photos")val photos: List<String>
-)
+    @PrimaryKey
+    @SerializedName("name") var name: String = "",
+    @SerializedName("description") var description: String = "",
+    @SerializedName("location")var location: String = "",
+    @SerializedName("average_rating") var averageRating: Double = 0.0,
+    @SerializedName("scores_and_reviews")var scoresAndReviews: List<ScoresAndReviewsVO> = arrayListOf(),
+    @SerializedName("photos")var photos: List<String> = arrayListOf()
+){
+
+}
