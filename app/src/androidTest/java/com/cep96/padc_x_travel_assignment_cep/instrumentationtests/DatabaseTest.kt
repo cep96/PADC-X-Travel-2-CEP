@@ -18,7 +18,6 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4ClassRunner::class)
 class DatabaseTest {
 
-    /*
     private lateinit var toursDao: TourDao
     private lateinit var countryDao: CountryDao
     private lateinit var db: TravelDB
@@ -94,5 +93,4 @@ class DatabaseTest {
 
 
     }
-*/
 }
