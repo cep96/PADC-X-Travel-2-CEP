@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PADC-X-Travel-Assignment-CEP.iml" filepath="$PROJECT_DIR$/PADC-X-Travel-Assignment-CEP.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PADC-X-Travel-Assignment-CEP.iml" filepath="$PROJECT_DIR$/PADC-X-Travel-Assignment-CEP.iml" group="PADC-X-Travel-Assignment-CEP" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="PADC-X-Travel-Assignment-CEP/app" />
     </modules>
   </component>
 </project>

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import com.cep96.padc_x_travel_assignment_cep.data.models.ToursModel
 import com.cep96.padc_x_travel_assignment_cep.mvp.views.HomeView
 import com.cep96.padc_x_travel_assignment_cep.data.models.ToursModelImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,7 +23,7 @@ class HomePresenterImpl: HomePresenter, AbstractBasePresenter<HomeView>() {
         mView?.navigateToCountryDetails(name)
     }
 
-    private val mViewModel = ToursModelImpl
+    var mViewModel: ToursModel = ToursModelImpl
 
 
     override fun onSwipeRefresh(lifecycleOwner: LifecycleOwner) {

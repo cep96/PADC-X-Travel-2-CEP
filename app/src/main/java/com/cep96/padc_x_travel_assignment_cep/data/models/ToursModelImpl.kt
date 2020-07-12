@@ -54,7 +54,7 @@ object ToursModelImpl : BaseModel(), ToursModel {
 //
 //    }
 
-    fun getData(): Observable<CountriesAndToursListVO> {
+    override fun getData(): Observable<CountriesAndToursListVO> {
         return Observable.zip<List<CountryVO>, List<ToursVO>, CountriesAndToursListVO> (
             mToursApi.getAllCountries().map {
                 it.data

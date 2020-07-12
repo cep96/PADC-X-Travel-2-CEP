@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit
 
 abstract class BaseModel {
 
-    protected lateinit var mTheDB: TravelDB
-    protected lateinit var mToursApi: ToursApi
+    lateinit var mTheDB: TravelDB
+    lateinit var mToursApi: ToursApi
 
 
     private fun initDatabase(context:Context){

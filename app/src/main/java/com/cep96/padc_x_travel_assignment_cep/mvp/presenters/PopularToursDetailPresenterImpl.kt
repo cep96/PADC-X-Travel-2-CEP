@@ -11,7 +11,7 @@ class PopularToursDetailPresenterImpl: PopularToursDetailPresenter,
     private val mToursModel = ToursModelImpl
 
     override fun onUIReady(lifecycleOwner: LifecycleOwner, name: String) {
-        mToursModel.getCountryByName(name).observe(
+        mToursModel.getTourByName(name).observe(
             lifecycleOwner, Observer { country ->
                 if (country == null){
                     mView?.showEmptyView()

@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: org.mmtextview:mmtextview:1.5@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/22eec73bb028c274c2ef60d1e00f63ea/jetified-mmtextview-1.5/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/22eec73bb028c274c2ef60d1e00f63ea/jetified-mmtextview-1.5/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b2fb8f4e2f5bb67cfa50a60a9c3f04fd/jetified-mmtextview-1.5/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b2fb8f4e2f5bb67cfa50a60a9c3f04fd/jetified-mmtextview-1.5/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mmtextview/mmtextview/1.5/1d5884984e796afe2c9295c09cad80fd0cb3cf99/mmtextview-1.5-javadoc.jar!/" />
