@@ -124,8 +124,8 @@ class BottomNavHomeFragment : Fragment(), HomeView {
             mPresenter.onTapCountryItem(name)
         }
 
-        rcCountry.adapter = mCountryAdapter
-        rcCountry.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        rvCountry.adapter = mCountryAdapter
+        rvCountry.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
         // for popular tours list
         mPopularToursAdapter = PopularToursListAdapter{ name ->
@@ -133,8 +133,8 @@ class BottomNavHomeFragment : Fragment(), HomeView {
             mPresenter.onTapTourItem(name)
         }
 
-        rcPopularTours.adapter = mPopularToursAdapter
-        rcPopularTours.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        rvPopularTours.adapter = mPopularToursAdapter
+        rvPopularTours.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
     }
 
